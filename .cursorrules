@@ -1,0 +1,22 @@
+# AgriWheel — Cursor rules
+
+## Design system (strict)
+- Colors ONLY: Green #1B5E20, Yellow #FFC107, White #FFFFFF. No greys, gradients, or extra colors.
+- Font: Poppins only (google_fonts). Sizes: title 22, heading 18, body 14, caption 12. Weights: regular + semibold only.
+- Buttons: full width height 52 radius 12 — Primary (green/white), Accent (yellow/green text), Secondary (white, 2px green border, green text). Small: height 40, radius 12 (inside cards only).
+- Inputs: outlined, green border, height 52, radius 12.
+- Icons: Material Icons rounded/outlined, 24px.
+- Spacing: 8pt grid, 16px screen padding, card radius 12, 16px between cards. Use `AppListingCard` for listings.
+- Prices: green semibold, format `Rs 25,00,000` via `formatPakistanPrice`.
+- Every screen: loading, empty, and error states.
+
+## Code
+- Widgets: `AppButton`, `AppTextField`, `AppListingCard`, `EmptyState`, `LoadingView` in `lib/core/widgets`. Theme in `lib/core/theme`.
+- Folders: `lib/core`, `lib/features/auth`, `lib/features/listings`, `lib/features/profile`, `lib/features/chat`.
+- Packages: supabase_flutter, flutter_dotenv, go_router, google_fonts, image_picker, flutter_image_compress, cached_network_image, provider, url_launcher, shared_preferences.
+- Supabase: load keys from `.env` only in `main.dart`. Use `supabase` getter from `lib/core/supabase/supabase_client.dart`. Repositories in `lib/features/*/data`, not in widgets.
+- Auth: go_router redirect; Provider for session (`AuthSessionProvider`).
+- Maximum 20 screens. No extra features.
+
+## Legacy
+- `lib/modules/**` is mock UI until migrated phase-by-phase. Do not expand without removing duplicates.
