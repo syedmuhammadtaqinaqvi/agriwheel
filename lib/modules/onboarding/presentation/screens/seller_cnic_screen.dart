@@ -60,7 +60,7 @@ class _SellerCnicScreenState extends State<SellerCnicScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Seller Verification'),
+      appBar: AuthStackAppBar(screenTitle: 'Seller Verification'),
       body: ResponsiveBody(
         child: ListView(
           children: [

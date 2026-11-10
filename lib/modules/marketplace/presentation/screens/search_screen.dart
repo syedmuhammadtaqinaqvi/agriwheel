@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/widgets/agri_primary_app_bar.dart';
+import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/app_listing_card.dart';
 import '../../../../core/widgets/empty_state.dart';
 import '../../../../core/widgets/loading_view.dart';
@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AgriPrimaryAppBar(),
+      appBar: MarketAppBar(key: const ValueKey('tab-search-app-bar')),
       body: ResponsiveBody(
         child: Column(
           children: [

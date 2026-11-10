@@ -36,7 +36,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   Widget build(BuildContext context) {
     final buyerStyle = widget.args.showCustomKeypad;
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Otp Verification'),
+      appBar: AuthStackAppBar(screenTitle: 'Otp Verification'),
       body: ResponsiveBody(
         child: ListView(
           children: [

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/providers/auth_session_provider.dart';
 import '../../features/auth/presentation/screens/choose_role_screen.dart';
 import '../../features/auth/presentation/screens/onboarding_screen.dart';
-import '../../features/dev/presentation/connection_test_screen.dart';
 import '../../modules/auth/presentation/screens/buyer_signup_screen.dart';
 import '../../modules/auth/presentation/screens/change_password_screen.dart';
 import '../../modules/auth/presentation/screens/forgot_password_screen.dart';
@@ -50,7 +49,6 @@ GoRouter createAppRouter(AuthSessionProvider authProvider) {
         RouteNames.sellerSignup,
         RouteNames.forgotPassword,
         RouteNames.resetPassword,
-        RouteNames.connectionTest,
       };
 
       const profileSetup = {
@@ -83,7 +81,7 @@ GoRouter createAppRouter(AuthSessionProvider authProvider) {
       }
 
       if (auth.isLoggedIn && !auth.needsProfileSetup) {
-        if (publicAuth.contains(path) && path != RouteNames.splash && path != RouteNames.connectionTest) {
+        if (publicAuth.contains(path) && path != RouteNames.splash) {
           if (path == RouteNames.login || path == RouteNames.buyerSignup || path == RouteNames.sellerSignup) {
             return RouteNames.home;
           }
@@ -93,7 +91,6 @@ GoRouter createAppRouter(AuthSessionProvider authProvider) {
       return null;
     },
     routes: [
-      GoRoute(path: RouteNames.connectionTest, builder: (_, __) => const ConnectionTestScreen()),
       GoRoute(path: RouteNames.splash, builder: (_, __) => const SplashScreen()),
       GoRoute(path: RouteNames.onboarding, builder: (_, __) => const OnboardingScreen()),
       GoRoute(path: RouteNames.chooseRole, builder: (_, __) => const ChooseRoleScreen()),

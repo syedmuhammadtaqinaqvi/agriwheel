@@ -62,7 +62,7 @@ class _BuyerProfileScreenState extends State<BuyerProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Profile Details'),
+      appBar: AuthStackAppBar(screenTitle: 'Profile Details'),
       body: ResponsiveBody(
         child: ListView(
           children: [

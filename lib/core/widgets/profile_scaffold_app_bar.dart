@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'agri_brand_header.dart';
 
 class ProfileScaffoldAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ProfileScaffoldAppBar({super.key, required this.subtitle});
+  ProfileScaffoldAppBar({super.key, required this.subtitle});
 
   final String subtitle;
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kAgriToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    return AgriBrandHeader(title: subtitle);
+    return AgriAppBar(
+      key: key,
+      title: subtitle,
+      showBrandTitle: true,
+    );
   }
 }

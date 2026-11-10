@@ -63,6 +63,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: ResponsiveBody(
+        safeTop: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

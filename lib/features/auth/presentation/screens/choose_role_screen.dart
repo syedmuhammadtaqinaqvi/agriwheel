@@ -36,6 +36,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: ResponsiveBody(
+        safeTop: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

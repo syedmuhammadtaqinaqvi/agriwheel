@@ -50,7 +50,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Forgot Password'),
+      appBar: AuthStackAppBar(screenTitle: 'Forgot Password'),
       body: ResponsiveBody(
         child: Form(
           key: _formKey,

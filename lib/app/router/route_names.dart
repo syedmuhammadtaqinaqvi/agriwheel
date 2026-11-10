@@ -1,5 +1,4 @@
 abstract final class RouteNames {
-  static const connectionTest = '/dev/connection';
   static const splash = '/';
   static const onboarding = '/onboarding';
   static const chooseRole = '/auth/choose-role';

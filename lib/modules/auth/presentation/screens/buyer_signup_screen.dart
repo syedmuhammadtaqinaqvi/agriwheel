@@ -58,7 +58,12 @@ class _BuyerSignupScreenState extends State<BuyerSignupScreen> {
       if (!mounted) return;
       if (res.session == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Account created. Check your email if confirmation is required, then log in.')),
+          const SnackBar(
+            content: Text(
+              'Account created. If login fails, confirm your email (link from AgriWheel admin site) or disable “Confirm email” in Supabase for testing. See supabase/AUTH_SETUP.md',
+            ),
+            duration: Duration(seconds: 6),
+          ),
         );
         context.go(RouteNames.login);
         return;
@@ -78,7 +83,7 @@ class _BuyerSignupScreenState extends State<BuyerSignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Buyer Sign Up'),
+      appBar: AuthStackAppBar(screenTitle: 'Buyer Sign Up'),
       body: ResponsiveBody(
         child: Form(
           key: _formKey,

@@ -10,4 +10,6 @@ abstract final class AppSpacing {
   static const double cardGap = 16;
   static const double radiusXl = 12;
   static const double maxContentWidth = 480;
+  /// Bottom inset for tab [ListView]s above [BottomAppBar] + FAB.
+  static const double shellBottomInset = 88;
 }

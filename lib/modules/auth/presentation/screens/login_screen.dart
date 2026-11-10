@@ -8,7 +8,7 @@ import '../../../../core/providers/auth_session_provider.dart';
 import '../../../../core/utils/auth_error_message.dart';
 import '../../../../core/widgets/agri_emblem.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/primary_button.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/responsive_body.dart';
 import '../../../../features/auth/data/auth_repository.dart';
 
@@ -57,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.surface,
-      body: SafeArea(
-        child: ResponsiveBody(
-          child: Form(
+      body: ResponsiveBody(
+        safeTop: true,
+        child: Form(
             key: _formKey,
             child: ListView(
               padding: const EdgeInsets.only(top: AppSpacing.lg),
@@ -105,35 +105,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerRight,
                   child: TextButton(onPressed: () => context.push(RouteNames.forgotPassword), child: const Text('Forgot Password?')),
                 ),
-                PrimaryButton(
+                AppButton(
                   label: 'Log In',
-                  onPressed: _submit,
+                  onPressed: _loading ? null : _submit,
                   isLoading: _loading,
                 ),
-                const SizedBox(height: AppSpacing.xl),
+                const SizedBox(height: AppSpacing.lg),
+                AppButton(
+                  label: 'Browse without signing in',
+                  variant: AppButtonVariant.secondary,
+                  onPressed: () => context.go(RouteNames.home),
+                ),
+                const SizedBox(height: AppSpacing.md),
                 Center(
                   child: TextButton(
                     onPressed: () => context.go(RouteNames.chooseRole),
                     child: const Text.rich(
                       TextSpan(
                         text: 'New to AgriWheel? ',
-                        children: [TextSpan(text: 'Sign Up', style: TextStyle(fontWeight: FontWeight.w700, decoration: TextDecoration.underline))],
+                        children: [TextSpan(text: 'Sign Up', style: TextStyle(fontWeight: FontWeight.w600, decoration: TextDecoration.underline))],
                       ),
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () => context.go(RouteNames.home),
-                  child: const Text('Browse tractors without signing in'),
-                ),
-                TextButton(
-                  onPressed: () => context.go(RouteNames.connectionTest),
-                  child: const Text('Supabase connection test'),
-                ),
               ],
             ),
           ),
-        ),
       ),
     );
   }

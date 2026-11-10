@@ -5,16 +5,19 @@ import '../constants/app_spacing.dart';
 import '../theme/app_colors.dart';
 import 'agri_emblem.dart';
 
-/// Fixed green top bar — use inside [Scaffold.appBar] OR top of a [Column] (not slivers).
-class AgriBrandHeader extends StatelessWidget implements PreferredSizeWidget {
-  const AgriBrandHeader({
+/// Standard green top bar height (below status bar).
+const double kAgriToolbarHeight = 56;
+
+/// Green AgriWheel app bar. Use a unique [key] per simultaneous scaffold (tab shell).
+class AgriAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const AgriAppBar({
     super.key,
     this.leading,
     this.title,
     this.subtitle,
     this.trailing,
     this.showBrandTitle = true,
-    this.standalone = false,
+    this.actions,
   });
 
   final Widget? leading;
@@ -22,78 +25,107 @@ class AgriBrandHeader extends StatelessWidget implements PreferredSizeWidget {
   final String? subtitle;
   final Widget? trailing;
   final bool showBrandTitle;
-  /// `true` when header is the top of [Scaffold.body] (adds status-bar inset). `false` for [Scaffold.appBar].
-  final bool standalone;
+  final List<Widget>? actions;
 
-  static const double barHeight = 56;
+  static const SystemUiOverlayStyle overlayStyle = SystemUiOverlayStyle(
+    statusBarColor: AppColors.green,
+    statusBarIconBrightness: Brightness.light,
+    statusBarBrightness: Brightness.dark,
+  );
 
   @override
-  Size get preferredSize => Size.fromHeight(standalone ? barHeight : barHeight);
+  Size get preferredSize => const Size.fromHeight(kAgriToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    final actionWidgets = <Widget>[
+      if (trailing != null)
+        Padding(
+          padding: const EdgeInsets.only(right: AppSpacing.sm),
+          child: trailing,
+        ),
+      ...?actions,
+    ];
+
+    return AppBar(
+      key: key,
+      toolbarHeight: kAgriToolbarHeight,
+      backgroundColor: AppColors.primaryContainer,
+      foregroundColor: AppColors.onPrimary,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      systemOverlayStyle: overlayStyle,
+      automaticallyImplyLeading: false,
+      leading: leading,
+      titleSpacing: 8,
+      centerTitle: false,
+      title: _BrandTitleRow(
+        title: title,
+        subtitle: subtitle,
+        showBrandTitle: showBrandTitle,
+      ),
+      actions: actionWidgets.isEmpty ? null : actionWidgets,
+    );
+  }
+}
+
+class _BrandTitleRow extends StatelessWidget {
+  const _BrandTitleRow({
+    required this.title,
+    required this.subtitle,
+    required this.showBrandTitle,
+  });
+
+  final String? title;
+  final String? subtitle;
+  final bool showBrandTitle;
 
   @override
   Widget build(BuildContext context) {
     final compact = MediaQuery.sizeOf(context).width < 360;
-    final topPad = standalone ? MediaQuery.paddingOf(context).top : 0.0;
+    final titleStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+          fontSize: compact ? 15 : 17,
+        );
+    final brandStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        );
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle.light,
-      child: Material(
-        color: AppColors.primaryContainer,
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        child: Padding(
-          padding: EdgeInsets.only(top: topPad),
-          child: SizedBox(
-            height: barHeight,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
-              child: Row(
-                children: [
-                  if (leading != null) leading!,
-                  const AgriEmblem(size: 30),
-                  if (showBrandTitle) ...[
-                    SizedBox(width: compact ? 4 : 8),
-                    if (!compact)
-                      Text(
-                        'AgriWheel',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                      ),
-                  ],
-                  if (title != null) ...[
-                    if (showBrandTitle)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: compact ? 2 : 6),
-                        child: Text('|', style: TextStyle(color: AppColors.accent.withValues(alpha: 0.85))),
-                      ),
-                    Expanded(
-                      child: Text(
-                        title!,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: compact ? 15 : 17,
-                            ),
-                      ),
-                    ),
-                  ] else
-                    const Spacer(),
-                  if (subtitle != null && !compact)
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Text(subtitle!, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.accent)),
-                    ),
-                  trailing ?? const SizedBox.shrink(),
-                ],
-              ),
+    return Row(
+      children: [
+        const AgriEmblem(size: 30),
+        if (showBrandTitle) ...[
+          SizedBox(width: compact ? 4 : 8),
+          if (!compact) Text('AgriWheel', style: brandStyle),
+        ],
+        if (title != null && title!.isNotEmpty) ...[
+          if (showBrandTitle)
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: compact ? 2 : 6),
+              child: Text('|', style: TextStyle(color: AppColors.accent.withValues(alpha: 0.85))),
+            ),
+          Expanded(
+            child: Text(
+              title!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: titleStyle,
             ),
           ),
-        ),
-      ),
+        ] else if (!showBrandTitle)
+          const Spacer(),
+        if (subtitle != null && !compact)
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Text(
+              subtitle!,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.accent),
+            ),
+          ),
+      ],
     );
   }
 }

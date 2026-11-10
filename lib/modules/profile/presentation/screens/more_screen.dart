@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_card.dart';
 import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/responsive_body.dart';
 
@@ -12,11 +14,16 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MarketAppBar(),
+      appBar: MarketAppBar(key: const ValueKey('tab-more-app-bar')),
       body: ResponsiveBody(
         child: ListView(
+          padding: const EdgeInsets.only(
+            top: AppSpacing.md,
+            bottom: AppSpacing.shellBottomInset,
+          ),
           children: [
-            const SizedBox(height: AppSpacing.md),
+            Text('Quick links', style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: AppSpacing.sm),
             _MenuTile(
               icon: Icons.storefront,
               title: 'Sell machinery',
@@ -57,18 +64,15 @@ class _MenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return AppCard(
       margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
-        side: const BorderSide(color: Color(0xFF1B5E20), width: 2),
-      ),
+      padding: EdgeInsets.zero,
       child: ListTile(
         onTap: onTap,
-        leading: Icon(icon),
-        title: Text(title, style: Theme.of(context).textTheme.labelLarge),
-        subtitle: Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
-        trailing: const Icon(Icons.chevron_right),
+        leading: Icon(icon, color: AppColors.green),
+        title: Text(title),
+        subtitle: Text(subtitle),
+        trailing: const Icon(Icons.chevron_right, color: AppColors.green),
       ),
     );
   }

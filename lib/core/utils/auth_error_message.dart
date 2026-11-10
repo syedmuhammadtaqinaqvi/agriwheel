@@ -13,7 +13,7 @@ String friendlyAuthError(Object error) {
       return 'Password is too weak. Use at least 6 characters.';
     }
     if (m.contains('email not confirmed')) {
-      return 'Check your email to confirm your account, then log in.';
+      return 'Email not confirmed yet. For testing: Supabase → Authentication → Providers → Email → turn off Confirm email, or confirm the user in Authentication → Users.';
     }
     if (m.contains('rate limit')) {
       return 'Too many attempts. Please wait a moment and try again.';

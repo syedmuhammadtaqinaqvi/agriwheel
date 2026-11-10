@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MarketAppBar(),
+      appBar: MarketAppBar(key: const ValueKey('tab-home-app-bar')),
       body: RefreshIndicator(
         color: AppColors.green,
         onRefresh: _load,
@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     )
                   : ListView(
-                      padding: const EdgeInsets.only(bottom: 88),
+                      padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
                       physics: const AlwaysScrollableScrollPhysics(),
                       children: [
                         const SizedBox(height: AppSpacing.sm),
@@ -222,9 +222,17 @@ class _SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: Theme.of(context).textTheme.titleMedium),
+        Container(
+          width: 4,
+          height: 22,
+          margin: const EdgeInsets.only(right: AppSpacing.sm),
+          decoration: BoxDecoration(
+            color: AppColors.secondaryContainer,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        Expanded(child: Text(title, style: Theme.of(context).textTheme.titleMedium)),
         TextButton(onPressed: onViewAll, child: const Text('View all')),
       ],
     );

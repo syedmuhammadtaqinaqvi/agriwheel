@@ -44,7 +44,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'New Password'),
+      appBar: AuthStackAppBar(screenTitle: 'New Password'),
       body: ResponsiveBody(
         child: Form(
           key: _formKey,

@@ -5,6 +5,7 @@ import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/agri_screen_shell.dart';
+import '../../../../core/widgets/app_card.dart';
 import '../../../auth/domain/auth_session.dart';
 import '../widgets/logout_confirm_dialog.dart';
 import '../widgets/profile_menu_tile.dart';
@@ -79,23 +80,18 @@ class _BuyerAccountScreenState extends State<BuyerAccountScreen> {
           ),
         ),
         body: ListView(
+          padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
           children: [
-          Transform.translate(
-            offset: const Offset(0, -12),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.margin),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _Stat(icon: Icons.saved_search, value: '14', label: 'Searches'),
-                      _Stat(icon: Icons.favorite, value: '5', label: 'Wishlist'),
-                      _Stat(icon: Icons.forum, value: '2', label: 'Active Chats'),
-                    ],
-                  ),
-                ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(AppSpacing.margin, AppSpacing.md, AppSpacing.margin, 0),
+            child: AppCard(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _Stat(icon: Icons.saved_search, value: '14', label: 'Searches'),
+                  _Stat(icon: Icons.favorite, value: '5', label: 'Wishlist'),
+                  _Stat(icon: Icons.forum, value: '2', label: 'Active Chats'),
+                ],
               ),
             ),
           ),

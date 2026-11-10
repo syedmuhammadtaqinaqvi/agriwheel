@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_spacing.dart';
 import '../theme/app_colors.dart';
 import 'agri_brand_header.dart';
 
-/// Fixed header + scroll body (profile tabs — no duplicate appBar strip).
+/// Profile hub layout: app bar + optional green hero + scroll body.
 class AgriScreenShell extends StatelessWidget {
   const AgriScreenShell({
     super.key,
@@ -24,17 +25,18 @@ class AgriScreenShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.surface,
-      child: Column(
+    return Scaffold(
+      backgroundColor: AppColors.surface,
+      appBar: AgriAppBar(
+        key: ValueKey('shell-$headerTitle'),
+        leading: leading,
+        title: headerTitle,
+        showBrandTitle: showBrandTitle,
+        trailing: trailing ?? const _DefaultProfileChip(),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AgriBrandHeader(
-            standalone: true,
-            leading: leading,
-            title: headerTitle,
-            showBrandTitle: showBrandTitle,
-            trailing: trailing ?? const _DefaultProfileChip(),
-          ),
           if (headerExtension != null)
             ColoredBox(
               color: AppColors.primaryContainer,
@@ -52,10 +54,13 @@ class _DefaultProfileChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CircleAvatar(
-      radius: 16,
-      backgroundColor: AppColors.brand,
-      child: Icon(Icons.person, color: Colors.white, size: 18),
+    return const Padding(
+      padding: EdgeInsets.only(right: AppSpacing.sm),
+      child: CircleAvatar(
+        radius: 16,
+        backgroundColor: AppColors.brand,
+        child: Icon(Icons.person, color: Colors.white, size: 18),
+      ),
     );
   }
 }

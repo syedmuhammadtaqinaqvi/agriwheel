@@ -131,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.surface,
-      appBar: const EditProfileAppBar(),
+      appBar: EditProfileAppBar(),
       body: Form(
         key: _formKey,
         child: ListView(

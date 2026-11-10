@@ -50,7 +50,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Change Password'),
+      appBar: AuthStackAppBar(screenTitle: 'Change Password'),
       body: ResponsiveBody(
         child: Form(
           key: _formKey,

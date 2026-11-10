@@ -16,4 +16,14 @@ Then sign up again in the app. You should get a session immediately and go to pr
 
 - Dashboard → **Authentication** → **Users** → open the user → confirm manually, **or** delete the user and register again after disabling confirm.
 
-**Production / confirm email ON:** see [LIVE_AUTH_AND_ADMIN_PLAN.md](./LIVE_AUTH_AND_ADMIN_PLAN.md) — deploy a live HTTPS page and set **Site URL** in Supabase (not localhost).
+**Production / confirm email ON:** see [LIVE_AUTH_AND_ADMIN_PLAN.md](./LIVE_AUTH_AND_ADMIN_PLAN.md) — use `https://agriwheel.vercel.app/auth/confirm-email` as redirect (Flutter `.env`: `AUTH_REDIRECT_BASE`).
+
+## Testing without using email quota (rate limits)
+
+Supabase free tier limits auth emails per hour. While testing:
+
+1. **Confirm email OFF** (above) — sign-up does not send mail; login works right away.
+2. **Authentication → Users → Add user** — set email + password, enable **Auto confirm user** (no email).
+3. For admin: run `supabase/promote_admin_user.sql` or set `is_admin = true` on that user.
+
+There is no separate “free unlimited verification” product — for dev, **disable confirmation** or **create users in the dashboard**.

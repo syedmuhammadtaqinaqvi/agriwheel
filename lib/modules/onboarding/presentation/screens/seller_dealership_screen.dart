@@ -60,7 +60,7 @@ class _SellerDealershipScreenState extends State<SellerDealershipScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AuthStackAppBar(screenTitle: 'Profile Details'),
+      appBar: AuthStackAppBar(screenTitle: 'Profile Details'),
       body: ResponsiveBody(
         child: ListView(
           children: [

@@ -65,7 +65,7 @@ class _SellerMyAdsScreenState extends State<SellerMyAdsScreen> {
         trailingTitle: 'My Ads',
       ),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
+        padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
         children: [
           Padding(
             padding: const EdgeInsets.all(AppSpacing.margin),

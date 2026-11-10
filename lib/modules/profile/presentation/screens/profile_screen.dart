@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/agri_primary_app_bar.dart';
+import '../../../../core/widgets/app_card.dart';
+import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/primary_button.dart';
 
 /// Profile tab: entry to saved listings, seller dashboard, and auth flows.
@@ -14,13 +15,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AgriPrimaryAppBar(),
+      appBar: MarketAppBar(key: const ValueKey('tab-profile-app-bar')),
       body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.margin),
+        padding: const EdgeInsets.fromLTRB(AppSpacing.margin, AppSpacing.margin, AppSpacing.margin, AppSpacing.shellBottomInset),
         children: [
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.md),
-            decoration: BoxDecoration(color: AppColors.surfaceLow, borderRadius: BorderRadius.circular(AppSpacing.radiusXl)),
+          AppCard(
             child: const Row(
               children: [
                 CircleAvatar(radius: 28, backgroundColor: AppColors.brand, child: Icon(Icons.person, color: Colors.white)),
@@ -88,12 +87,9 @@ class _Tile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return AppCard(
       margin: const EdgeInsets.only(bottom: AppSpacing.sm),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
-        side: const BorderSide(color: AppColors.brand, width: 2),
-      ),
+      padding: EdgeInsets.zero,
       child: ListTile(
         onTap: onTap,
         leading: Icon(icon, color: AppColors.brand),

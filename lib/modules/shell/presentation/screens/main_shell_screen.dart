@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../app/router/route_names.dart';
+import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class MainShellScreen extends StatelessWidget {
@@ -17,15 +18,22 @@ class MainShellScreen extends StatelessWidget {
         onPressed: () => context.push(RouteNames.postAd),
         backgroundColor: AppColors.secondaryContainer,
         foregroundColor: AppColors.brand,
-        child: const Icon(Icons.add, size: 30),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
+          side: const BorderSide(color: AppColors.green, width: 2),
+        ),
+        child: const Icon(Icons.add, size: 28),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: AppColors.surface,
-        notchMargin: 8,
-        shape: const CircularNotchedRectangle(),
-        child: SizedBox(
-          height: 56,
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: BottomAppBar(
+          color: AppColors.surface,
+          height: 60,
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm),
+          notchMargin: 8,
+          shape: const CircularNotchedRectangle(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -73,13 +81,21 @@ class _NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(AppSpacing.radiusXl),
       child: SizedBox(
         width: 64,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(icon, color: AppColors.brand, size: 24),
-            Text(label, style: TextStyle(fontSize: 11, color: AppColors.brand, fontWeight: selected ? FontWeight.w700 : FontWeight.w400)),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                color: AppColors.brand,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
           ],
         ),
       ),
