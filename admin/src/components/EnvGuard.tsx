@@ -8,10 +8,10 @@ export function EnvGuard({ children }: { children: React.ReactNode }) {
           <h1>Configuration required</h1>
           <p>{supabaseConfigError}</p>
           <pre className="env-hint">
-            {`cd admin
-Copy-Item .env.example .env
-# Paste SUPABASE_URL → VITE_SUPABASE_URL
-# Paste SUPABASE_ANON_KEY → VITE_SUPABASE_ANON_KEY`}
+            {`Vercel → Settings → Environment Variables:
+SUPABASE_URL (or VITE_SUPABASE_URL)
+SUPABASE_ANON_KEY (or VITE_SUPABASE_ANON_KEY)
+Then Deployments → Redeploy.`}
           </pre>
         </div>
       </div>
