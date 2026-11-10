@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../features/auth/data/auth_repository.dart';
@@ -23,7 +24,9 @@ class AuthSessionProvider extends ChangeNotifier {
       }
     });
     if (_session != null) {
-      unawaited(refreshProfile());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        unawaited(refreshProfile());
+      });
     }
   }
 
@@ -33,6 +36,7 @@ class AuthSessionProvider extends ChangeNotifier {
   Session? _session;
   ProfileModel? _profile;
   bool _loadingProfile = false;
+  Future<void>? _refreshInFlight;
   late final StreamSubscription<AuthState> _authSub;
 
   bool get isLoggedIn => _session != null;
@@ -51,7 +55,16 @@ class AuthSessionProvider extends ChangeNotifier {
   return _profile!.isSeller ? '/onboarding/seller-dealership' : '/onboarding/buyer-profile';
   }
 
-  Future<void> refreshProfile() async {
+  /// Waits for profile after sign-in without duplicate Supabase calls.
+  Future<void> ensureProfileLoaded() {
+    return refreshProfile();
+  }
+
+  Future<void> refreshProfile() {
+    return _refreshInFlight ??= _refreshProfileImpl().whenComplete(() => _refreshInFlight = null);
+  }
+
+  Future<void> _refreshProfileImpl() async {
     _loadingProfile = true;
     notifyListeners();
     try {

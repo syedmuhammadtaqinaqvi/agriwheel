@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/services/app_prefs.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/responsive_body.dart';
 
@@ -71,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: _finish,
-                child: Text('Skip', style: GoogleFonts.poppins(color: AppColors.green, fontWeight: FontWeight.w600)),
+                child: Text('Skip', style: AppTypography.poppins(color: AppColors.green, fontWeight: FontWeight.w600)),
               ),
             ),
             SizedBox(
@@ -99,13 +98,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Text(
                         slide.title,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.green),
+                        style: AppTypography.poppins(fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.green),
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       Text(
                         slide.body,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(fontSize: 14, height: 1.4, color: AppColors.green),
+                        style: AppTypography.poppins(fontSize: 14, height: 1.4, color: AppColors.green),
                       ),
                     ],
                   );

@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../app/router/route_names.dart';
@@ -10,6 +7,7 @@ import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/providers/auth_session_provider.dart';
 import '../../../../core/services/app_prefs.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/agri_wheel_logo.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,18 +21,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), _navigateNext);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _navigateNext());
   }
 
   Future<void> _navigateNext() async {
     if (!mounted) return;
+
     final auth = context.read<AuthSessionProvider>();
     final onboardingDone = await AppPrefs.isOnboardingComplete();
-
-    while (auth.isLoggedIn && auth.isLoadingProfile) {
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-      if (!mounted) return;
-    }
 
     if (!mounted) return;
 
@@ -45,15 +39,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (auth.isLoggedIn) {
       final setupRoute = auth.postAuthRoute;
-      if (setupRoute != null) {
-        context.go(setupRoute);
-      } else {
-        context.go(RouteNames.home);
-      }
+      context.go(setupRoute ?? RouteNames.home);
       return;
     }
 
-    context.go(RouteNames.login);
+    context.go(RouteNames.home);
   }
 
   @override
@@ -77,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     const SizedBox(height: AppSpacing.lg),
                     Text(
                       'AgriWheel',
-                      style: GoogleFonts.poppins(
+                      style: AppTypography.poppins(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: AppColors.white,
@@ -87,24 +77,26 @@ class _SplashScreenState extends State<SplashScreen> {
                     const SizedBox(height: AppSpacing.xs),
                     Text(
                       'Buy. Sell. Grow.',
-                      style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.yellow),
+                      style: AppTypography.poppins(fontSize: 14, color: AppColors.yellow),
                     ),
                   ],
                 ),
               ),
               const Spacer(),
-              Center(
-                child: SizedBox(
-                  width: 136,
-                  height: 4,
-                  child: LinearProgressIndicator(
-                    backgroundColor: AppColors.white.withValues(alpha: 0.35),
-                    color: AppColors.yellow,
-                    borderRadius: BorderRadius.circular(999),
+              const Padding(
+                padding: EdgeInsets.only(bottom: AppSpacing.lg),
+                child: Center(
+                  child: SizedBox(
+                    width: 28,
+                    height: 28,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: AppColors.yellow,
+                      backgroundColor: AppColors.white,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: AppSpacing.lg),
             ],
           ),
         ),

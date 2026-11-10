@@ -69,7 +69,7 @@ class _BuyerSignupScreenState extends State<BuyerSignupScreen> {
         return;
       }
       final auth = context.read<AuthSessionProvider>();
-      await auth.refreshProfile();
+      await auth.ensureProfileLoaded();
       if (!mounted) return;
       context.go(auth.postAuthRoute ?? RouteNames.buyerProfile);
     } catch (e) {

@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       await _authRepo.signIn(email: _emailCtrl.text, password: _passwordCtrl.text);
       if (!mounted) return;
       final auth = context.read<AuthSessionProvider>();
-      await auth.refreshProfile();
+      await auth.ensureProfileLoaded();
       if (!mounted) return;
       final next = auth.postAuthRoute ?? RouteNames.home;
       context.go(next);

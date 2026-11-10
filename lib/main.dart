@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/app.dart';
 import 'core/providers/auth_session_provider.dart';
+import 'core/services/app_prefs.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,10 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  await dotenv.load(fileName: '.env');
+  await Future.wait([
+    dotenv.load(fileName: '.env'),
+    AppPrefs.warmUp(),
+  ]);
 
   final url = dotenv.env['SUPABASE_URL'];
   final anonKey = dotenv.env['SUPABASE_ANON_KEY'];

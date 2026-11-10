@@ -4,7 +4,38 @@ import '../constants/app_spacing.dart';
 import '../theme/app_colors.dart';
 import 'agri_brand_header.dart';
 
-/// Profile hub layout: app bar + optional green hero + scroll body.
+/// Scrollable profile tab body only — app bar lives on [MainShellScreen].
+class AgriProfileTabBody extends StatelessWidget {
+  const AgriProfileTabBody({
+    super.key,
+    required this.headerExtension,
+    required this.body,
+    this.bottomPadding = AppSpacing.shellBottomInset,
+  });
+
+  final Widget headerExtension;
+  final Widget body;
+  final double bottomPadding;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.only(bottom: bottomPadding),
+      children: [
+        ColoredBox(
+          color: AppColors.primaryContainer,
+          child: SizedBox(
+            width: double.infinity,
+            child: headerExtension,
+          ),
+        ),
+        SizedBox(width: double.infinity, child: body),
+      ],
+    );
+  }
+}
+
+/// Full-screen profile hub (pushed routes outside the tab shell).
 class AgriScreenShell extends StatelessWidget {
   const AgriScreenShell({
     super.key,
@@ -14,6 +45,7 @@ class AgriScreenShell extends StatelessWidget {
     this.trailing,
     required this.body,
     this.headerExtension,
+    this.bottomPadding = AppSpacing.shellBottomInset,
   });
 
   final String headerTitle;
@@ -22,6 +54,7 @@ class AgriScreenShell extends StatelessWidget {
   final Widget? trailing;
   final Widget body;
   final Widget? headerExtension;
+  final double bottomPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -32,25 +65,26 @@ class AgriScreenShell extends StatelessWidget {
         leading: leading,
         title: headerTitle,
         showBrandTitle: showBrandTitle,
-        trailing: trailing ?? const _DefaultProfileChip(),
+        trailing: trailing ?? const AgriProfileAppBarChip(),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
+        padding: EdgeInsets.only(bottom: bottomPadding),
         children: [
           if (headerExtension != null)
             ColoredBox(
               color: AppColors.primaryContainer,
               child: headerExtension,
             ),
-          Expanded(child: body),
+          body,
         ],
       ),
     );
   }
 }
 
-class _DefaultProfileChip extends StatelessWidget {
-  const _DefaultProfileChip();
+/// Trailing avatar on logged-in profile app bar.
+class AgriProfileAppBarChip extends StatelessWidget {
+  const AgriProfileAppBarChip({super.key});
 
   @override
   Widget build(BuildContext context) {

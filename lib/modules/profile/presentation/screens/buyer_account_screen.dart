@@ -25,12 +25,11 @@ class _BuyerAccountScreenState extends State<BuyerAccountScreen> {
     final session = AuthSession.instance;
     final initials = session.displayName.split(' ').map((e) => e.isNotEmpty ? e[0] : '').take(2).join();
 
-    return Scaffold(
-      body: AgriScreenShell(
-        headerTitle: 'Buyer Profile',
+    return AgriProfileTabBody(
         headerExtension: Padding(
           padding: const EdgeInsets.fromLTRB(AppSpacing.margin, 0, AppSpacing.margin, AppSpacing.lg),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
                 Row(
                   children: [
@@ -59,18 +58,23 @@ class _BuyerAccountScreenState extends State<BuyerAccountScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('ACCOUNT ROLE', style: TextStyle(color: Colors.white70, fontSize: 11, fontWeight: FontWeight.w700)),
-                        Text('Active Equipment Buyer', style: TextStyle(color: AppColors.secondaryContainer, fontWeight: FontWeight.w600)),
-                      ],
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('ACCOUNT ROLE', style: TextStyle(color: Colors.white70, fontSize: 11, fontWeight: FontWeight.w700)),
+                          Text('Active Equipment Buyer', style: TextStyle(color: AppColors.secondaryContainer, fontWeight: FontWeight.w600)),
+                        ],
+                      ),
                     ),
                     FilledButton.icon(
                       onPressed: () => context.push(RouteNames.editProfile),
-                      style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.brand),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: AppColors.brand,
+                        visualDensity: VisualDensity.compact,
+                      ),
                       icon: const Icon(Icons.edit, size: 18),
                       label: const Text('Edit Profile'),
                     ),
@@ -79,8 +83,9 @@ class _BuyerAccountScreenState extends State<BuyerAccountScreen> {
             ],
           ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(AppSpacing.margin, AppSpacing.md, AppSpacing.margin, 0),
@@ -198,7 +203,6 @@ class _BuyerAccountScreenState extends State<BuyerAccountScreen> {
           ),
         ],
         ),
-      ),
     );
   }
 

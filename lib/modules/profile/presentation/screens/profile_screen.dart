@@ -5,7 +5,6 @@ import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_card.dart';
-import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/primary_button.dart';
 
 /// Profile tab: entry to saved listings, seller dashboard, and auth flows.
@@ -14,9 +13,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MarketAppBar(key: const ValueKey('tab-profile-app-bar')),
-      body: ListView(
+    return ListView(
         padding: const EdgeInsets.fromLTRB(AppSpacing.margin, AppSpacing.margin, AppSpacing.margin, AppSpacing.shellBottomInset),
         children: [
           AppCard(
@@ -73,7 +70,6 @@ class ProfileScreen extends StatelessWidget {
             onTap: () {},
           ),
         ],
-      ),
     );
   }
 }

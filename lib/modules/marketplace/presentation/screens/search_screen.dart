@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/app_listing_card.dart';
 import '../../../../core/widgets/empty_state.dart';
 import '../../../../core/widgets/loading_view.dart';
@@ -60,46 +59,44 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MarketAppBar(key: const ValueKey('tab-search-app-bar')),
-      body: ResponsiveBody(
-        child: Column(
-          children: [
-            TextField(
-              controller: _query,
-              decoration: InputDecoration(
-                hintText: 'Search by title…',
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(icon: const Icon(Icons.tune), onPressed: _search),
-              ),
-              onSubmitted: (_) => _search(),
+    return ResponsiveBody(
+      child: Column(
+        children: [
+          TextField(
+            controller: _query,
+            decoration: InputDecoration(
+              hintText: 'Search by title…',
+              prefixIcon: const Icon(Icons.search),
+              suffixIcon: IconButton(icon: const Icon(Icons.tune), onPressed: _search),
             ),
-            const SizedBox(height: AppSpacing.sm),
-            Expanded(
-              child: _loading
-                  ? const LoadingView(message: 'Searching…')
-                  : _error != null
-                      ? EmptyState(message: _error!)
-                      : _results.isEmpty
-                          ? const EmptyState(message: 'No listings found.')
-                          : ListView.separated(
-                              itemCount: _results.length,
-                              separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
-                              itemBuilder: (_, i) {
-                                final e = _results[i];
-                                return AppListingCard(
-                                  title: e.title,
-                                  price: e.price,
-                                  imageUrl: e.primaryImage,
-                                  subtitle: e.subtitle,
-                                  featured: e.isFeatured,
-                                  onTap: () => context.push(RouteNames.listingDetail, extra: e.id),
-                                );
-                              },
-                            ),
-            ),
-          ],
-        ),
+            onSubmitted: (_) => _search(),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Expanded(
+            child: _loading
+                ? const LoadingView(message: 'Searching…')
+                : _error != null
+                    ? EmptyState(message: _error!)
+                    : _results.isEmpty
+                        ? const EmptyState(message: 'No listings found.')
+                        : ListView.separated(
+                            padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
+                            itemCount: _results.length,
+                            separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
+                            itemBuilder: (_, i) {
+                              final e = _results[i];
+                              return AppListingCard(
+                                title: e.title,
+                                price: e.price,
+                                imageUrl: e.primaryImage,
+                                subtitle: e.subtitle,
+                                featured: e.isFeatured,
+                                onTap: () => context.push(RouteNames.listingDetail, extra: e.id),
+                              );
+                            },
+                          ),
+          ),
+        ],
       ),
     );
   }

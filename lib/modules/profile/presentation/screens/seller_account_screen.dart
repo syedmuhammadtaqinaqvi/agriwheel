@@ -24,13 +24,11 @@ class _SellerAccountScreenState extends State<SellerAccountScreen> {
   Widget build(BuildContext context) {
     final session = AuthSession.instance;
 
-    return Scaffold(
-      body: AgriScreenShell(
-        headerTitle: 'Seller Profile',
+    return AgriProfileTabBody(
         headerExtension: Padding(
           padding: const EdgeInsets.fromLTRB(AppSpacing.margin, 0, AppSpacing.margin, AppSpacing.lg),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,22 +73,31 @@ class _SellerAccountScreenState extends State<SellerAccountScreen> {
                 ),
                 const SizedBox(height: AppSpacing.md),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(color: AppColors.brand.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(8)),
-                      child: const Row(
-                        children: [
-                          _PulseDot(),
-                          SizedBox(width: 8),
-                          Text('Deals Active Today', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
-                        ],
+                    Flexible(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(color: AppColors.brand.withValues(alpha: 0.4), borderRadius: BorderRadius.circular(8)),
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _PulseDot(),
+                            SizedBox(width: 8),
+                            Flexible(
+                              child: Text('Deals Active Today', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 11)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
+                    const SizedBox(width: AppSpacing.sm),
                     FilledButton.icon(
                       onPressed: () => context.push(RouteNames.editProfile),
-                      style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.brand),
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: AppColors.brand,
+                        visualDensity: VisualDensity.compact,
+                      ),
                       icon: const Icon(Icons.edit, size: 18),
                       label: const Text('Edit Profile'),
                     ),
@@ -99,8 +106,9 @@ class _SellerAccountScreenState extends State<SellerAccountScreen> {
             ],
           ),
         ),
-        body: ListView(
-          padding: const EdgeInsets.only(bottom: AppSpacing.xl),
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
           Padding(
             padding: const EdgeInsets.all(AppSpacing.margin),
@@ -220,8 +228,7 @@ class _SellerAccountScreenState extends State<SellerAccountScreen> {
             ),
           ),
         ],
-      ),
-    ),
+        ),
     );
   }
 

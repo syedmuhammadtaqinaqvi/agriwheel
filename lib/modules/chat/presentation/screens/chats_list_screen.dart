@@ -5,7 +5,6 @@ import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/agri_network_image.dart';
-import '../../../../core/widgets/market_app_bar.dart';
 import '../../domain/chat_thread_model.dart';
 
 class ChatsListScreen extends StatefulWidget {
@@ -37,9 +36,7 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MarketAppBar(key: const ValueKey('tab-chats-app-bar')),
-      body: ListView(
+    return ListView(
         padding: const EdgeInsets.only(bottom: AppSpacing.shellBottomInset),
         children: [
           Padding(
@@ -84,7 +81,6 @@ class _ChatsListScreenState extends State<ChatsListScreen> {
                 onTap: () => context.push(RouteNames.chatThread, extra: t),
               )),
         ],
-      ),
     );
   }
 }

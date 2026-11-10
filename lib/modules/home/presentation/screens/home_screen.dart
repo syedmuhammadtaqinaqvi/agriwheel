@@ -7,7 +7,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_listing_card.dart';
 import '../../../../core/widgets/empty_state.dart';
 import '../../../../core/widgets/loading_view.dart';
-import '../../../../core/widgets/market_app_bar.dart';
 import '../../../../core/widgets/responsive_body.dart';
 import '../../../../features/listings/data/listings_repository.dart';
 import '../../../../features/listings/domain/listing.dart';
@@ -63,9 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MarketAppBar(key: const ValueKey('tab-home-app-bar')),
-      body: RefreshIndicator(
+    return RefreshIndicator(
         color: AppColors.green,
         onRefresh: _load,
         child: ResponsiveBody(
@@ -145,7 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
         ),
-      ),
     );
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../../../app/router/route_names.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/services/app_prefs.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/responsive_body.dart';
 
@@ -44,13 +43,13 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
             Text(
               'How will you use AgriWheel?',
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.green),
+              style: AppTypography.poppins(fontSize: 22, fontWeight: FontWeight.w600, color: AppColors.green),
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
               'Buyers browse and chat. Sellers post and manage ads.',
               textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(fontSize: 14, color: AppColors.green),
+              style: AppTypography.poppins(fontSize: 14, color: AppColors.green),
             ),
             const SizedBox(height: AppSpacing.lg),
             _RoleOptionTile(
@@ -75,7 +74,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
               onPressed: () => context.go(RouteNames.login),
               child: Text(
                 'Already have an account? Log In',
-                style: GoogleFonts.poppins(color: AppColors.green, fontWeight: FontWeight.w600, fontSize: 14),
+                style: AppTypography.poppins(color: AppColors.green, fontWeight: FontWeight.w600, fontSize: 14),
               ),
             ),
             const SizedBox(height: AppSpacing.sm),
@@ -134,9 +133,9 @@ class _RoleOptionTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.green)),
+                    Text(title, style: AppTypography.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.green)),
                     const SizedBox(height: 2),
-                    Text(subtitle, style: GoogleFonts.poppins(fontSize: 12, color: AppColors.green)),
+                    Text(subtitle, style: AppTypography.poppins(fontSize: 12, color: AppColors.green)),
                   ],
                 ),
               ),
